@@ -27,16 +27,7 @@ public class Question1 {
         if (n < 1) return 0;
 
         // p is the first index of the "array", q is the midpoint, r is the last
-        int p = 0, r = n, q = (p + r) / 2;;
-
-        while (p <= r){
-            q = (p + r) / 2;
-            // COMMENT / UNCOMMENT STATEMENT TO SEE HOW ALGORITHM DIVIDES AND CONQUERS
-            System.out.println(q);
-            // if the midpoint of the "array" is the answer, return the midpoint
-            if ((q*q) == n) return q;
-            if ((q*q) > n) r = q - 1;
-            else p = q + 1;
+        
         }
         // returns the ceiling value of our final element q if q*q != n
         return q+1;
