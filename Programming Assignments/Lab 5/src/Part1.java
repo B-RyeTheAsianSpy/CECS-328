@@ -25,12 +25,7 @@ public class Part1 {
 
         int max_sum = 0;
         int sum = 0;
-        for (int i = 0; i < a.length; i++) {
-            if (a.length <= 1) return a[i];
-            sum += a[i];
-            if(sum > max_sum) max_sum = sum;
-            else if (sum < 0) sum = 0;
-        }
+      
         return max_sum;
     }
 
@@ -64,9 +59,7 @@ public class Part1 {
      * @param a
      */
     public static void populateArray(int [] a){
-        for (int i = 0; i < a.length; i++) {
-            a[i] = randInt();
-        }
+       
     }
 
     /**
@@ -74,10 +67,7 @@ public class Part1 {
      * @return - array with size n
      */
     public static int[] input(){
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter integer n: "); int n = in.nextInt();
-        int[] a = new int[n];
-        return a;
+        
     }
 }
 
