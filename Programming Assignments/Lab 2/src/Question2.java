@@ -13,19 +13,7 @@ public class Question2 {
         // p is the first element of the array, r is the last element
         int p = 0, r = a.length - 1;
         while(p <= r){
-            // q is the mid point
-            int q = (p + r) / 2;
-
-            // if the middle element is zero and the element after that is 1, we have found our split
-            if (a[q] == 0 && a[q + 1] == 1) return q + 1;
-
-            // if the middle element is zero and the element after that is still zero, then we remove the first
-            // half of the array
-            if (a[q] == 0 && (a[q] == a[q+1] )) p = q + 1;
-
-            // if the middle element is 1 and the element after that is still 1, then we remove the second
-            // half of the array
-            if (a[q] == 1 && (a[q] == a[q+1])) r = q - 1;
+           
         }
         return -1;
     }
