@@ -59,7 +59,9 @@ public class Part1 {
      * @param a
      */
     public static void populateArray(int [] a){
-       
+       for (int i = 0; i < a.length; i++) {
+            a[i] = randInt();
+        }
     }
 
     /**
@@ -67,7 +69,10 @@ public class Part1 {
      * @return - array with size n
      */
     public static int[] input(){
-        
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter integer n: "); int n = in.nextInt();
+        int[] a = new int[n];
+        return a;
     }
 }
 
