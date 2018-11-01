@@ -5,17 +5,7 @@ public class Prog3 {
 
     public static void insertionSort(int[] a){
 
-        int unsorted = 1;
-        while(unsorted < a.length){
-            int hold = a[unsorted];
-            int i = unsorted - 1;
-            while ((i >= 0) && (hold < a[i])){
-                a[i + 1] = a[i];
-                i = i - 1;
-            }
-            a[i + 1] = hold;
-            unsorted += 1;
-        }
+      
 
     }
 
