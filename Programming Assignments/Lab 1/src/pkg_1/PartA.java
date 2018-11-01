@@ -14,11 +14,7 @@ public class PartA {
      */
     public static int linearSearch(int[] a, int key){
         int answer = -1;
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] == key){
-                answer = i;
-            }
-        }
+       
         return answer;
     }
 
@@ -31,12 +27,7 @@ public class PartA {
      */
     public static int binarySearch(int[] a, int key){
         int p = 0, r = a.length-1;
-        while (p <= r){
-            int q = (p + r) / 2;
-            if (a[q] == key) return q;
-            if (a[q] > key) r = q - 1;
-            else p = q + 1;
-        }
+        
         return -1;
     }
 
@@ -46,13 +37,9 @@ public class PartA {
      */
     public static void selectionSort(int[] a){
         for (int i = 0; i < a.length - 1; i++) {
-            int min = i;
-            for(int j = i + 1; j < a.length; j++){
-                if (a[j] < a[min]) min = j;
+            
             }
-            int temp = a[i];
-            a[i] = a[min];
-            a[min] = temp;
+            
         }
     }
 
