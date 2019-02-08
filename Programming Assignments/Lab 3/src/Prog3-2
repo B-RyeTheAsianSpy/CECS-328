@@ -1,0 +1,131 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class QuickSort {
+
+    /**
+     * rearranges an array into two sub arrays:
+     *      array left contains elements less than the pivot
+     *      array right contains elements greater than the pivot
+     *
+     * @param a - array to be partitioned
+     * @param low
+     * @param high
+     * @return
+     */
+    public static int partition(int a[], int low, int high)
+    {
+        int pivot = a[high];
+        int i = (low-1); // index of smaller element
+        System.out.println(pivot);
+        for (int j=low; j<high; j++)
+        {
+            // If current element is smaller than or
+            // equal to pivot
+            if (a[j] <= pivot)
+            {
+                i++;
+                // swap a[i] and a[j] so that j is on the upper bound of the pivot
+                swap(a, i, j);
+            }
+        }
+
+        // swap arr[i+1] and arr[high] (or pivot)
+        swap(a, i + 1, high);
+
+        return i+1;
+    }
+
+    /**
+     * method used to swap one element with another one in an array
+     * @param arr - array used
+     * @param a - element a
+     * @param b - element b
+     */
+    public static void swap(int arr[], int a, int b){
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+
+    /**
+     *
+     * @param arr - the array used for quick sort
+     * @param low - the first element in the array
+     * @param high - the last element in the array
+     */
+    public static void quickSort(int arr[], int low, int high)
+    {
+        if (low < high)
+        {
+
+            int pivot = partition(arr, low, high);
+
+            // Recursively sort elements before
+            // partition and after partition
+
+            // in this case, we divide the arrays into sub arrays, and perform the partition algorithm on them
+            quickSort(arr, low, pivot - 1);
+            quickSort(arr, pivot + 1, high);
+        }
+    }
+
+    /**
+     * method used to calculate the average time for quick sort in 100 iterations
+     * @param a - array to be tested
+     * @param n - size of the array
+     */
+    public static void quickSortRunner(int a[], int n){
+        long start = System.nanoTime();
+        int test = 100;
+        for(int j = 0; j < test; j++){
+            for (int i = 0; i < n; i++) {
+                // generates a random number between -1000 and 1000 and puts in array
+                a[i] = randInt();
+
+                if(a.length == i + 1){
+                    quickSort(a, 0, a.length - 1);
+                    // printArray(a);
+
+                }
+
+            }
+        }
+        long end = System.nanoTime();
+        long timeElapsed = end - start;
+        long avg = (timeElapsed / test);
+        System.out.println("The average of using quick sort 100 times with size " + n + " is " + avg + " nanoseconds");
+    }
+
+    /**
+     *
+     * @return random int between -5000 and 5000
+     */
+    public static int randInt(){
+        int min = -5000, max = 5000;
+
+        Random rand = new Random();
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+        return randomNum;
+    }
+
+    /**
+     * prints an array
+     * @param a - array to be printed
+     */
+    public static void printArray(int []a){
+        System.out.print("[ ");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + " ");
+        }
+        System.out.print("]\n");
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter the array size n: ");
+        int n = in.nextInt();
+        int a[] = new int[n];
+        quickSortRunner(a, n);
+
+    }
+}
