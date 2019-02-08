@@ -4,6 +4,26 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class PartB {
+
+    /**
+     * Lab 1, Part B - Calculating the worst case time for linear search and binary search
+     * @param args
+     */
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Please enter a positive integer: ");
+        int n = sc.nextInt();
+        int a[] = new int[n];
+
+        populateArray(a, n);
+        selectionSort(a);
+        linearRunner(a, n);
+        System.out.println();
+        binaryRunner(a, n);
+
+    }
+
     /**
      * T(n) = O(n)
      *
@@ -16,8 +36,10 @@ public class PartB {
         for (int i = 0; i < a.length; i++) {
             if (a[i] == key){
                 answer = i;
+                break;
             }
         }
+        // returns the value of the key, else -1 if not found
         return answer;
     }
 
@@ -40,6 +62,7 @@ public class PartB {
     }
 
     /**
+     * T(n) = O(n^2)
      *
      * @param a - the array that we are sorting
      */
@@ -49,11 +72,22 @@ public class PartB {
             for(int j = i + 1; j < a.length; j++){
                 if (a[j] < a[min]) min = j;
             }
-            int temp = a[i];
-            a[i] = a[min];
-            a[min] = temp;
+            swap(a, i, min);
         }
     }
+
+    /**
+     *
+     * @param arr - array used
+     * @param a - element a
+     * @param b - element b
+     */
+    public static void swap(int arr[], int a, int b){
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+
 
     /**
      *
@@ -67,57 +101,68 @@ public class PartB {
         return randomNum;
     }
 
-    public static void main(String[] args) {
-        // user input
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Please enter a positive integer: ");
-        int n = sc.nextInt();
 
-        // create an array with size of n, the value that the user put
-        int a[] = new int[n];
-        for (int i = 0; i < n; i++) {
-            // generates a random number between -1000 and 1000 and puts in array
-            a[i] = randInt();
-        }
+    /**
+     * calculates the average time of linear search for 100 iterations
+     * @param a
+     */
+    public static void linearRunner(int[] a, int n){
 
-        // sorts array using selection sort
-        selectionSort(a);
-
-        // Using linear search
+        // Using linear search 100 times and finding the average of the runtime
         long startTime = System.nanoTime();
-        linearSearch(a, 500000000);
+        int key = 500000;
+        linearSearch(a, key);
+
         long endTime = System.nanoTime();
-        long elapsedTime = endTime - startTime;
+        long elapsedTime = (endTime - startTime);
 
-        System.out.println("\nThe worst case scenario for linear search is " + elapsedTime + " nanoseconds");
-        System.out.println("The estimated runtime for one single step is " + (elapsedTime / n) + " nanoseconds");
-
-        // time it takes to run one step
-        long temp = elapsedTime / n;
-
-        // convert nanoseconds to seconds
-        double seconds =  (temp * 0.000000001);
-
-        // time it takes to run one step when input size is 10^7
-        seconds = (seconds / n) * 10000000;
-        System.out.println("Time it takes to run an array with size 10^7: " + seconds + " seconds\n");
-
-        // Using binary search
-        long startTime2 = System.nanoTime();
-        binarySearch(a, 50000000);
-        long endTime2 = System.nanoTime();
-        elapsedTime = endTime2 - startTime2;
-
-        System.out.println("The worst case scenario for binary search is " + elapsedTime + " nanoseconds");
-        System.out.println("The estimated runtime for one single step is " + (elapsedTime / (Math.log(n) / Math.log(2))) + " nanoseconds");
-
-        double t = elapsedTime / (Math.log(n) / Math.log(2));
-        seconds =  (t * 0.000000001);
-        seconds = (seconds / n) * 10000000;
-        System.out.println("Time it takes to run an array with size 10^7: " + seconds + " seconds");
+        System.out.println("The time to run linear search once is is " + elapsedTime);
+        double average = 1 / (double)n;
+        System.out.println("The time it takes to run one single step using linear search is " + average + " seconds");
+        double large = 10000000; // 10^7
+        double worstCase = (average / (double)n ) * large * 1000000000; // convert to seconds
+        System.out.println("The worst case runtime for linear search is " + worstCase + " seconds");
 
 
     }
 
+    /**
+     * calculates the average time of binary search for 100 iterations
+     * @param a - array used in binary search
+     */
+    public static void binaryRunner(int a[], int n){
+
+        int key = 5000000;
+        long startTime = System.nanoTime();
+
+        binarySearch(a, key);
+
+        long endTime = System.nanoTime();
+        long elapsedTime = (endTime - startTime);
+
+        System.out.println("The time to run binary search once is " + elapsedTime);
+        double average = 1 / Math.log(n);
+        System.out.println("The time it takes to run one single step using binary search is " + average + " seconds");
+
+        double large = 10000000; // 10^7
+        // based off of # 3
+        double worstCase = ((average / Math.log((double)n )) * Math.log(large)) * 1000000000; // convert to seconds
+        System.out.println("The worst case runtime for binary search is " + worstCase + " seconds");
+
+
+    }
+
+    /**
+     * populates an array with random integers from -1000 to 1000
+     * @param a - the array to be populated
+     * @param n - the size of the array
+     * @return the array populated with random integers
+     */
+    public static int[] populateArray(int[] a, int n){
+        for (int i = 0; i < n; i++) {
+            a[i] = randInt();
+        }
+        return a;
+    }
 
 }
