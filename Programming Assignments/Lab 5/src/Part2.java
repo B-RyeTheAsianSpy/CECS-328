@@ -26,13 +26,15 @@ public class Part2 {
         if (high == low) return a[low];
 
         else{
-            printArray(a);
+
             int mid = (low + high) / 2; // dividing the arrays
             int left_sum = mss(a, low, mid);
             int right_sum = mss(a, mid + 1, high);
             int cross_sum = mssCrossSum(a, low, mid, high);
 
-   
+            if(left_sum >= right_sum && left_sum >= cross_sum) return left_sum;
+            else if (right_sum >= left_sum && right_sum >= cross_sum) return right_sum;
+            else return cross_sum;
 
         }
     }
@@ -48,11 +50,17 @@ public class Part2 {
     public static int mssCrossSum(int a[], int low, int mid, int high){
         int left_sum = Integer.MIN_VALUE, sum = 0;
         for (int i = mid; i >= low; i--){
-            
+            sum += a[i];
+            if (sum > left_sum){
+                left_sum = sum;
+            }
         }
         int right_sum = Integer.MIN_VALUE; sum = 0;
         for (int j = mid + 1; j <= high; j++) {
-            
+            sum += a[j];
+            if (sum > right_sum){
+                right_sum = sum;
+            }
         }
         return left_sum + right_sum;
     }
